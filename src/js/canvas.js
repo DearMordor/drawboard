@@ -1,30 +1,23 @@
+import Toolbox from "./toolbox.js";
 export default class Canvas {
     constructor(canvasId, increaseBtnId, decreaseBtnId, sizeElId, colorElId, clearElId) {
       this.canvas = document.getElementById(canvasId);
-      this.increaseBtn = document.getElementById(increaseBtnId);
-      this.decreaseBtn = document.getElementById(decreaseBtnId);
-      this.sizeEl = document.getElementById(sizeElId);
-      this.colorEl = document.getElementById(colorElId);
       this.clearEl = document.getElementById(clearElId);
       this.ctx = this.canvas.getContext('2d');
   
       this.ctx.canvas.width = this.calculateWidth();
       this.ctx.canvas.height = this.calculateHeight();
-      this.size = 10;
       this.isPressed = false;
-      this.color = 'black';
       this.x = undefined;
       this.y = undefined;
   
       this.canvas.addEventListener('mousedown', this.mouseDown.bind(this));
       document.addEventListener('mouseup', this.mouseUp.bind(this));
       this.canvas.addEventListener('mousemove', this.mouseMove.bind(this));
-      this.increaseBtn.addEventListener('click', this.increaseSize.bind(this));
-      this.decreaseBtn.addEventListener('click', this.decreaseSize.bind(this));
-      this.colorEl.addEventListener('change', this.changeColor.bind(this));
       this.clearEl.addEventListener('click', this.clearCanvas.bind(this));
   
-      this.updateSizeOnScreen();
+      this.toolbox = new Toolbox(increaseBtnId, decreaseBtnId, sizeElId, colorElId);
+      this.toolbox.updateSizeOnScreen();
     }
   
     mouseDown(e) {
@@ -52,8 +45,8 @@ export default class Canvas {
   
     drawCircle(x, y) {
       this.ctx.beginPath();
-      this.ctx.arc(x, y, this.size, 0, Math.PI * 2);
-      this.ctx.fillStyle = this.color;
+      this.ctx.arc(x, y, this.toolbox.size, 0, Math.PI * 2);
+      this.ctx.fillStyle = this.toolbox.color;
       this.ctx.fill();
     }
   
@@ -61,33 +54,9 @@ export default class Canvas {
       this.ctx.beginPath();
       this.ctx.moveTo(x1, y1);
       this.ctx.lineTo(x2, y2);
-      this.ctx.strokeStyle = this.color;
-      this.ctx.lineWidth = this.size * 2;
+      this.ctx.strokeStyle = this.toolbox.color;
+      this.ctx.lineWidth = this.toolbox.size * 2;
       this.ctx.stroke();
-    }
-  
-    updateSizeOnScreen() {
-      this.sizeEl.innerText = this.size;
-    }
-  
-    increaseSize() {
-      this.size += 5;
-      if (this.size > 50) {
-        this.size = 50;
-      }
-      this.updateSizeOnScreen();
-    }
-  
-    decreaseSize() {
-      this.size -= 5;
-      if (this.size < 5) {
-        this.size = 5;
-      }
-      this.updateSizeOnScreen();
-    }
-  
-    changeColor(e) {
-      this.color = e.target.value;
     }
   
     clearCanvas() {
