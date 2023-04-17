@@ -1,4 +1,4 @@
-class Canvas {
+export default class Canvas {
     constructor(canvasId, increaseBtnId, decreaseBtnId, sizeElId, colorElId, clearElId) {
       this.canvas = document.getElementById(canvasId);
       this.increaseBtn = document.getElementById(increaseBtnId);
@@ -100,10 +100,6 @@ class Canvas {
 
     calculateHeight() {
         const toolboxHeight = document.getElementById('toolbox').offsetHeight;
-        console.log(window.innerHeight - toolboxHeight);
         return window.innerHeight - toolboxHeight; 
     }
-  }
-  
-const canvas = new Canvas('canvas', 'increase', 'decrease', 'size', 'color', 'clear');
-  
+  }  
