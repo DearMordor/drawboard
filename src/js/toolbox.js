@@ -1,9 +1,12 @@
+import ShapeDragger from "./shapedragger.js";
+
 export default class Toolbox {
     constructor(increaseBtnId, decreaseBtnId, sizeElId, colorElId) {
       this.increaseBtn = document.getElementById(increaseBtnId);
       this.decreaseBtn = document.getElementById(decreaseBtnId);
       this.sizeEl = document.getElementById(sizeElId);
       this.colorEl = document.getElementById(colorElId);
+      // this.shapedragger = new ShapeDragger(this);
       this.size = 10;
       this.color = 'black';
       
@@ -14,6 +17,9 @@ export default class Toolbox {
       this.increaseBtn.addEventListener('click', this.increaseSize.bind(this));
       this.decreaseBtn.addEventListener('click', this.decreaseSize.bind(this));
       this.colorEl.addEventListener('change', this.changeColor.bind(this));
+
+      document.getElementById("saveButton").addEventListener("click", this.redirect.bind(this));
+
     }
 
     increaseSize() {
@@ -39,6 +45,10 @@ export default class Toolbox {
 
     updateSizeOnScreen() {
       this.sizeEl.innerText = this.size;
+    }
+
+    redirect() {
+        window.location.href = "pages/safe-file-as.html";
     }
 
     get size() {
