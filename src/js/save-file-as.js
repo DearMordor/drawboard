@@ -14,12 +14,14 @@ class LabelAnimator {
 }
 
 class ImageDownloader {
-    constructor(saveButtonId, defaultFileName) {
+    constructor(saveButtonId, backButtonId, defaultFileName) {
         this.saveButton = document.getElementById(saveButtonId);
+        this.backButton = document.getElementById(backButtonId);
         console.log(this.saveButton);
         this.defaultFileName = defaultFileName;
 
         this.saveButton.addEventListener('click', this.downloadImage.bind(this));
+        this.backButton.addEventListener('click', this.goBack.bind(this));
     }
 
     downloadImage(fileName) {
@@ -35,10 +37,14 @@ class ImageDownloader {
         link.click();
         document.body.removeChild(link);
     }
+
+    goBack() {
+        window.history.back();
+    }
 }
 
 // Usage
-let downloader = new ImageDownloader("saveButton", 'myDrawing.png');
+let downloader = new ImageDownloader("saveButton", "back", 'myDrawing.png');
 
 // Usage
 let animator = new LabelAnimator('.form-control label');

@@ -5,6 +5,7 @@ export default class Canvas {
     this.canvas = document.getElementById(canvasId);
     this.clearEl = document.getElementById(clearElId);
     this.saveButton = document.getElementById("saveButton");
+    this.eraseButton = document.getElementById("eraser");
     this.ctx = this.canvas.getContext('2d');
 
     this.ctx.canvas.width = this.calculateWidth();
@@ -18,9 +19,14 @@ export default class Canvas {
     this.canvas.addEventListener('mousemove', this.mouseMove.bind(this));
     this.clearEl.addEventListener('click', this.clearCanvas.bind(this));
     this.saveButton.addEventListener('click', () => this.saveToLocalStorage());
+    document.getElementById('eraser').addEventListener('click', () => {
+      this.setTool('eraser');
+    });
 
     this.toolbox = new Toolbox(increaseBtnId, decreaseBtnId, sizeElId, colorElId);
     this.history = new History('undo', 'redo', this.ctx);
+    this.currentTool = 'pen';
+
     this.toolbox.updateSizeOnScreen();
   }
 
@@ -44,8 +50,12 @@ export default class Canvas {
     if (this.isPressed) {
       const x2 = e.offsetX;
       const y2 = e.offsetY;
-      this.drawCircle(x2, y2);
-      this.drawLine(this.x, this.y, x2, y2);
+      if (this.currentTool === 'eraser') {
+        this.erase(x2, y2);
+      } else {
+        this.drawCircle(x2, y2);
+        this.drawLine(this.x, this.y, x2, y2);
+      }
       this.x = x2;
       this.y = y2;
     }
@@ -88,5 +98,29 @@ export default class Canvas {
   saveToLocalStorage() {
     let dataURL = this.canvas.toDataURL("image/png");
     localStorage.setItem('canvasImage', dataURL);
+
+    // Added History API navigation code
+    history.pushState(null, null, 'save_file_as.html');
+    location.reload();
   }
+
+  setTool(tool) {
+    this.currentTool = tool;
+  }
+
+  erase(x, y) {
+    this.ctx.clearRect(x - this.toolbox.size / 2, y - this.toolbox.size / 2, this.toolbox.size, this.toolbox.size);
+  }
+
+  restoreFromLocalStorage() {
+    let savedImage = localStorage.getItem('canvasImage');
+    if (savedImage) {
+      let img = new Image();
+      img.onload = () => {
+        this.ctx.drawImage(img, 0, 0);
+      }
+      img.src = savedImage;
+    }
+  }
+
 }  
