@@ -43,7 +43,6 @@ export default class Canvas {
     this.x = undefined;
     this.y = undefined;
     this.history.addState(this.getCurrentImageData())
-    console.log('Mouse is up')
   }
 
   mouseMove(e) {
@@ -99,7 +98,6 @@ export default class Canvas {
     let dataURL = this.canvas.toDataURL("image/png");
     localStorage.setItem('canvasImage', dataURL);
 
-    // Added History API navigation code
     history.pushState(null, null, 'save_file_as.html');
     location.reload();
   }
@@ -123,4 +121,4 @@ export default class Canvas {
     }
   }
 
-}  
+}
