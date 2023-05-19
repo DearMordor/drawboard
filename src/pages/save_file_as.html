@@ -1,33 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="../css/save-page.css" />
+    <link rel="stylesheet" href="../css/save-page.css">
     <title>Safe file</title>
 </head>
 <body>
     <header>
+      <nav>
         <div class="toolbox" id="toolbox">
-            <button id="back"><img src="../icons/arrow-back-rounded.svg" alt="Back"></button>
+          <a href="../index.html"><img src="../icons/arrow-back-rounded.svg" alt="Back"></a>
         </div>
+      </nav>
     </header>
     <main>
-        <div class="container">
-            <h1>Safe canvas as png</h1>
-            <form>
-                <div class="form-control">
-                    <input type="text" required>
-                    <label>FileName</label>
-                    <!-- <label>
-                      <span style="transition-delay: 0ms">E</span>
-                        <span style="transition-delay: 50ms">m</span>
-                        <span style="transition-delay: 100ms">a</span>
-                        <span style="transition-delay: 150ms">i</span>
-                        <span style="transition-delay: 200ms">l</span>
-                  </label> -->
-                </div>
-        
-                <button id= "saveButton" class="saveButton">Save</button>
-            </form>
+        <div class="container" id="container">
+
+          <div class="dropzone-container">
+            <h2>Captcha</h2>
+
+            <section class="dropzone source">
+              <h3>To save canvas, plesase sort this list in ascending order. </h3>
+
+              <div class="draggable" id="drag-1" draggable="true">3</div>
+              <div class="draggable" id="drag-2" draggable="true">2</div>
+              <div class="draggable" id="drag-3" draggable="true">1</div>
+              <div class="draggable" id="drag-4" draggable="true">4</div>
+              <div class="draggable" id="drag-5" draggable="true">5</div>
+            </section>
+          </div>
         </div>
     </main>
 

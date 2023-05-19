@@ -1,10 +1,3 @@
-import Canvas from './canvas.js'
-import FabButton from './fab-button.js';
-
-const canvas = new Canvas('canvas', 'increase', 'decrease', 'size', 'color', 'clear');
-
-
-const pauseBtn = `
 <svg width="24" height="24" viewBox="0 0 36 36" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
     <defs>
         <path id="ytp-12" d="M 11 10 L 17 10 L 17 26 L 11 26 M 20 10 L 26 10 L 26 26 L 20 26">
@@ -15,10 +8,3 @@ const pauseBtn = `
     <use xlink:href="#ytp-12" class="ytp-svg-shadow"></use>
     <use xlink:href="#ytp-12" class="ytp-svg-fill"></use>
 </svg>
-`
-
-
-window.addEventListener('DOMContentLoaded', () => {
-    const audioPlayer = document.getElementById('audioPlayer');
-    const fabButton = new FabButton(audioPlayer, pauseBtn);
-});

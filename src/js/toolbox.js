@@ -1,12 +1,9 @@
-import ShapeDragger from "./shapedragger.js";
-
 export default class Toolbox {
   constructor(increaseBtnId, decreaseBtnId, sizeElId, colorElId) {
     this.increaseBtn = document.getElementById(increaseBtnId);
     this.decreaseBtn = document.getElementById(decreaseBtnId);
     this.sizeEl = document.getElementById(sizeElId);
     this.colorEl = document.getElementById(colorElId);
-    // this.shapedragger = new ShapeDragger(this);
     this.size = 10;
     this.color = 'black';
 
