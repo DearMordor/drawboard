@@ -1,8 +1,18 @@
+/**
+ *  Representing a label animator.
+ */
 class LabelAnimator {
+    /**
+ * Create a LabelAnimator instance.
+ * @param {string} selector - The CSS selector for the labels.
+ */
     constructor(selector) {
         this.labels = document.querySelectorAll(selector);
     }
 
+    /**
+ * Animates the labels by wrapping each letter with a span element and applying transition delay.
+ */
     animate() {
         this.labels.forEach(label => {
             label.innerHTML = label.innerText
@@ -14,6 +24,12 @@ class LabelAnimator {
 }
 
 class ImageDownloader {
+    /**
+         * Create an ImageDownloader instance.
+         * @param {string} saveButtonId - The ID of the save button element.
+         * @param {string} backButtonId - The ID of the back button element.
+         * @param {string} defaultFileName - The default filename for the downloaded image.
+    */
     constructor(saveButtonId, backButtonId, defaultFileName) {
         this.saveButton = document.getElementById(saveButtonId);
         this.backButton = document.getElementById(backButtonId);
@@ -23,6 +39,9 @@ class ImageDownloader {
         this.errorMessage = document.getElementById("errorMessage")
     }
 
+    /**
+     * Downloads the image with the specified filename.
+    */
     downloadImage() {
         let fileName = this.inputField.value || this.defaultFileName;
 
@@ -41,6 +60,10 @@ class ImageDownloader {
         document.body.removeChild(link);
     }
 
+    /**
+     * Validates the input field for the filename.
+     * @returns {boolean} True if the input is valid, false otherwise.
+    */
     validateInput() {
         const inputValue = this.inputField.value.trim();
 
@@ -51,11 +74,17 @@ class ImageDownloader {
         this.clearErrorMessage();
         return true;
     }
-
+    /**
+         * Displays an error message.
+         * @param {string} message - The error message to be displayed.
+    */
     displayErrorMessage(message) {
         this.errorMessage.textContent = message;
     }
 
+    /**
+     * Clears the error message.
+     */
     clearErrorMessage() {
         this.errorMessage.textContent = '';
     }
@@ -71,7 +100,10 @@ class FillManager {
 
         this.setupEventListeners();
     }
-
+    /**
+     * Set up event listeners for the fill and empty elements.
+     * @private
+     */
     setupEventListeners() {
         this.fills.forEach((fill) => {
             fill.addEventListener('dragstart', this.dragStart.bind(this));
@@ -143,12 +175,18 @@ class FillManager {
 }
 
 class DragManager {
+    /**
+ * Create a DragManager instance.
+ * @param {AscendingOrderChecker} ascendingOrderChecker - The ascending order checker instance.
+ */
     constructor(ascendingOrderChecker) {
         this.draggables = [];
         this.dropzones = [];
         this.ascendingOrderChecker = ascendingOrderChecker
     }
-
+    /**
+     * Initialize the drag manager by creating draggable and dropzone instances.
+     */
     initialize() {
         const draggableElements = [...document.querySelectorAll(".draggable")];
         const dropzoneElements = [...document.querySelectorAll(".dropzone")];
@@ -182,6 +220,11 @@ class Draggable {
 }
 
 class Dropzone {
+    /**
+ * Create a Dropzone instance.
+ * @param {Element} element - The dropzone element.
+ * @param {AscendingOrderChecker} ascendingOrderChecker - The ascending order checker instance.
+ */
     constructor(element, ascendingOrderChecker) {
         this.element = element;
         this.ascendingOrderChecker = ascendingOrderChecker
@@ -207,6 +250,11 @@ class Dropzone {
 
     }
 
+    /**
+ * Get the element after the drag element based on the Y-coordinate.
+ * @param {number} y - The Y-coordinate.
+ * @returns {Element} The element after the drag element.
+ */
     getDragAfterElement(y) {
         const draggableElements = [
             ...this.element.querySelectorAll(".draggable:not(.is-dragging)")
@@ -232,6 +280,11 @@ class Dropzone {
 }
 
 class AscendingOrderChecker {
+    /**
+ * Create an AscendingOrderChecker instance.
+ * @param {Element} dropzoneContainer - The dropzone container element.
+ * @param {string} formHTML - The HTML content of the form.
+ */
     constructor(dropzoneContainer, formHTML) {
         this.dropzoneContainer = dropzoneContainer;
         this.formHTML = formHTML;
@@ -239,6 +292,10 @@ class AscendingOrderChecker {
         this.draggables = [...this.dropzone.querySelectorAll('.draggable')];
     }
 
+    /**
+ * Check the order of the draggable elements.
+ * @returns {boolean} True if the elements are in ascending order, false otherwise.
+ */
     checkOrder() {
         this.draggables = [...this.dropzone.querySelectorAll('.draggable')];
         const values = this.draggables.map((draggable) => parseInt(draggable.innerText));
@@ -261,12 +318,16 @@ class AscendingOrderChecker {
 
         return false;
     }
-
+    /**
+     * Remove the dropzone container element from the document.
+     */
     removeDropzoneContainer() {
         this.dropzoneContainer.remove();
         console.log("Hello")
     }
-
+    /**
+     * Add the form to the document.
+     */
     addFormToDocument() {
         const container = document.getElementById('container');
         container.innerHTML = this.formHTML;

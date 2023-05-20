@@ -1,4 +1,13 @@
+/**
+ * History manager for undo and redo functionality.
+ */
 export default class History {
+  /**
+   * Create a History instance.
+   * @param {string} undoBtnId - The ID of the undo button element.
+   * @param {string} redoBtnId - The ID of the redo button element.
+   * @param {CanvasRenderingContext2D} ctx - The 2D rendering context of the canvas.
+ */
   constructor(undoBtnId, redoBtnId, ctx) {
     this.undoBtn = document.getElementById(undoBtnId);
     this.redoBtn = document.getElementById(redoBtnId);
@@ -7,17 +16,26 @@ export default class History {
     this.redoStack = [];
     this.undoIndex = -1;
     this.redoIndex = -1;
-    this.currentState = this.addState(ctx.getImageData(0, 0, 
-                                                        this.ctx.canvas.width, 
-                                                        this.ctx.canvas.height));
+    this.currentState = this.addState(ctx.getImageData(0, 0,
+      this.ctx.canvas.width,
+      this.ctx.canvas.height));
     this.initEventHandlers()
   }
 
+  /**
+   * Initialize event handlers for the undo and redo buttons.
+   * @private
+ */
   initEventHandlers() {
     this.undoBtn.addEventListener('click', this.undo.bind(this));
     this.redoBtn.addEventListener('click', this.redo.bind(this));
   }
 
+  /**
+ * Add a new state to the undo stack.
+ * @param {ImageData} state - The state to be added.
+ * @returns {ImageData} The added state.
+ */
   addState(state) {
     this.undoStack.push(state);
     this.redoStack = [];
@@ -26,6 +44,9 @@ export default class History {
     this.undoIndex += 1;
   }
 
+  /**
+ * Perform an undo operation.
+ */
   undo() {
     console.log(this.undoStack.length);
     console.log(this.undoStack);
@@ -42,6 +63,9 @@ export default class History {
     }
   }
 
+  /**
+ * Perform a redo operation.
+ */
   redo() {
     if (this.redoStack.length > 0) {
       this.undoStack.push(this.currentState);
@@ -53,6 +77,10 @@ export default class History {
     }
   }
 
+  /**
+  * Reset the history with a new state.
+  * @param {ImageData} state - The new state to be set.
+  */
   resetHistory(state) {
     this.undoStack = [];
     this.undoIndex = -1;
@@ -73,6 +101,6 @@ export default class History {
       this.redoBtn.disabled = true;
     } else {
       this.redoBtn.disabled = false;
-    }  
+    }
   }
 }

@@ -1,4 +1,12 @@
 export default class Toolbox {
+
+  /**
+ * Create a Toolbox instance.
+ * @param {string} increaseBtnId - The ID of the increase button element.
+ * @param {string} decreaseBtnId - The ID of the decrease button element.
+ * @param {string} sizeElId - The ID of the size element.
+ * @param {string} colorElId - The ID of the color element.
+ */
   constructor(increaseBtnId, decreaseBtnId, sizeElId, colorElId) {
     this.increaseBtn = document.getElementById(increaseBtnId);
     this.decreaseBtn = document.getElementById(decreaseBtnId);
@@ -10,6 +18,10 @@ export default class Toolbox {
     this.addEventListeners();
   }
 
+  /**
+ * Add event listeners to the buttons and color element.
+ * @private
+ */
   addEventListeners() {
     this.increaseBtn.addEventListener('click', this.increaseSize.bind(this));
     this.decreaseBtn.addEventListener('click', this.decreaseSize.bind(this));
@@ -18,7 +30,9 @@ export default class Toolbox {
     document.getElementById("saveButton").addEventListener("click", this.redirect.bind(this));
 
   }
-
+  /**
+   * Increase the size by 5, up to a maximum of 50.
+   */
   increaseSize() {
     this.size += 5;
     if (this.size > 50) {

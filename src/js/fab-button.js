@@ -1,4 +1,12 @@
+/**
+ * Represents a floating action button (FAB) for controlling audio playback.
+ */
 export default class FabButton {
+    /**
+         * Creates a new instance of the FabButton class.
+         * @param {AudioPlayer} audioPlayer - The audio player object.
+         * @param {string} pauseBtn - The content for the pause button.
+     */
     constructor(audioPlayer, pauseBtn) {
         this.audioPlayer = audioPlayer;
         this.pauseBtn = pauseBtn
@@ -13,7 +21,9 @@ export default class FabButton {
         this.transformButton()
 
     }
-
+    /**
+         * Toggles the audio playback.
+     */
     togglePlayback() {
         if (this.isPlaying) {
             this.audioPlayer.pause();
@@ -27,6 +37,9 @@ export default class FabButton {
         this.isPlaying = !this.isPlaying;
     }
 
+    /**
+     * Transforms the button icon and animates the transition.
+    */
     transformButton() {
         this.flip = !this.flip;
         this.animation.setAttribute('from', this.flip ? this.pause : this.play);
