@@ -6,7 +6,12 @@ export default class Canvas {
     this.clearEl = document.getElementById(clearElId);
     this.saveButton = document.getElementById("saveButton");
     this.eraseButton = document.getElementById("eraser");
+    this.penButton = document.getElementById("pen");
     this.ctx = this.canvas.getContext('2d');
+
+    this.penButton.addEventListener('click', () => {
+      this.setTool('pen');
+    });
 
     this.ctx.canvas.width = this.calculateWidth();
     this.ctx.canvas.height = this.calculateHeight();
