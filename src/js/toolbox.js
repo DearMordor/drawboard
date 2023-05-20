@@ -45,7 +45,7 @@ export default class Toolbox {
   }
 
   redirect() {
-    window.location.href = "src/pages/save_file_as.html";
+    window.location.href = "./src/pages/save_file_as.html";
   }
 
   get size() {
