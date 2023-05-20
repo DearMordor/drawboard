@@ -198,3 +198,37 @@ position: absolute;
   #fab:hover {
     background-color: #1976D2;
   }
+
+  .toggle-container {
+    background-color: steelblue;
+  }
+  
+  .toggle-button {
+    position: relative;
+    width: 80px;
+    height: 40px;
+    border-radius: 20px;
+    background-color: #ccc;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .toggle-button:before {
+    content: "";
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background-color: #fff;
+    transition: transform 0.3s;
+  }
+  
+  .toggle-button.dark-mode {
+    background-color: #333;
+  }
+  
+  .toggle-button.dark-mode:before {
+    transform: translateX(40px);
+  }

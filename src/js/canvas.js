@@ -12,6 +12,7 @@ export default class Canvas {
     this.saveButton = document.getElementById("saveButton");
     this.eraseButton = document.getElementById("eraser");
     this.penButton = document.getElementById("pen");
+    this.toggleBgBtn = document.getElementById("toggleBgBtn");
     this.ctx = this.canvas.getContext('2d');
 
     this.penButton.addEventListener('click', () => {
@@ -37,6 +38,11 @@ export default class Canvas {
     this.toolbox = new Toolbox(increaseBtnId, decreaseBtnId, sizeElId, colorElId);
     this.history = new History('undo', 'redo', this.ctx);
     this.currentTool = 'pen';
+    this.canvas.style.backgroundColor = 'white';
+
+    this.toggleButton = document.querySelector('.toggle-button');
+    this.toggleButton.addEventListener('click', this.toggleDarkMode.bind(this));
+
 
     this.toolbox.updateSizeOnScreen();
   }
@@ -139,4 +145,15 @@ export default class Canvas {
     }
   }
 
+  toggleDarkMode() {
+    this.toggleButton.classList.toggle('dark-mode');
+
+    const currentColor = getComputedStyle(this.canvas).backgroundColor;
+
+    if (currentColor === 'rgb(0, 0, 0)' || currentColor === 'black') {
+      this.canvas.style.backgroundColor = 'white';
+    } else {
+      this.canvas.style.backgroundColor = 'black';
+    }
+  }
 }
